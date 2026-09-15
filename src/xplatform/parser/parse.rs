@@ -307,6 +307,7 @@ fn process_line(
                 state.peer_builder.protocol_version(protocol_version);
                 Ok(ParseState::PeerLevelKeys(state))
             }
+
             GetKey::Errno => match raw_val {
                 "0" => Ok(ParseState::PeerLevelKeys(state)),
                 _ => Err(ParseErr::ServerError(raw_val.to_string())),
@@ -378,6 +379,10 @@ mod tests {
                     cidr_mask: 32,
                 }],
                 protocol_version: 1,
+                #[cfg(feature = "neptun")]
+                supported_ciphers: None,
+                #[cfg(feature = "neptun")]
+                selected_cipher: None,
             }],
         };
 
@@ -470,6 +475,10 @@ mod tests {
                         cidr_mask: 32,
                     }],
                     protocol_version: 1,
+                    #[cfg(feature = "neptun")]
+                    supported_ciphers: None,
+                    #[cfg(feature = "neptun")]
+                    selected_cipher: None,
                 },
                 get::Peer {
                     public_key: parse_device_key(base64::decode(
@@ -488,6 +497,10 @@ mod tests {
                         cidr_mask: 32,
                     }],
                     protocol_version: 1,
+                    #[cfg(feature = "neptun")]
+                    supported_ciphers: None,
+                    #[cfg(feature = "neptun")]
+                    selected_cipher: None,
                 },
                 get::Peer {
                     public_key: parse_device_key(base64::decode(
@@ -513,6 +526,10 @@ mod tests {
                         },
                     ],
                     protocol_version: 1,
+                    #[cfg(feature = "neptun")]
+                    supported_ciphers: None,
+                    #[cfg(feature = "neptun")]
+                    selected_cipher: None,
                 },
             ],
         };
